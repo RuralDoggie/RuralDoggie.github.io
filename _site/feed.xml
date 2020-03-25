@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-SG"><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="zh-SG" /><updated>2020-03-25T17:30:24+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">大鲸鱼的博客</title><subtitle></subtitle><author><name>jingyu.qi</name><email>qijingyu2009@gmail.com</email></author><entry><title type="html">How To Use</title><link href="http://localhost:4000/2020/03/25/how-to-use.html" rel="alternate" type="text/html" title="How To Use" /><published>2020-03-25T00:00:00+08:00</published><updated>2020-03-25T00:00:00+08:00</updated><id>http://localhost:4000/2020/03/25/how-to-use</id><content type="html" xml:base="http://localhost:4000/2020/03/25/how-to-use.html">&lt;hr /&gt;
+&lt;p&gt;title: 这是一个基于OSX+jekyll+markdown+github的个人博客
+tags: hello
+—&lt;/p&gt;
+
+&lt;h1 id=&quot;这是一个基于osxjekyllmarkdowngithub的个人博客&quot;&gt;这是一个基于OSX+jekyll+markdown+github的个人博客&lt;/h1&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;												--致我亲爱的宝贝
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;install-command-line-toolspermalink&quot;&gt;Install Command Line ToolsPermalink&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;	xcode-select --install &lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&quot;install-homebrew&quot;&gt;Install homebrew&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;install-ruby&quot;&gt;Install ruby&lt;/h2&gt;
+&lt;p&gt;先检查版本号
+` ruby -v `
+我们使用2.6.3 如果低于这个,那就请跟着我下面的步骤进行升级吧.
+网上有很多很多ruby的管理工具 这里我使用rvm 所以下文使用rvm 来进行.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// 安装rvm
+curl -sSL https://get.rvm.io | bash -s stable 
+// 进行确认版本
+rvm -v 
+// 安装ruby的 2.6.3版本
+rvm install 2.6.3
+// 把2.6.3这个版本设置成默认
+rvm use 2.6.3 --default 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;安装及使用github-desktop&quot;&gt;安装及使用github desktop&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://desktop.github.com/&quot;&gt;传送门 ==&amp;gt; https://desktop.github.com/&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;导入项目&quot;&gt;导入项目&lt;/h2&gt;
+&lt;p&gt;接下来,就可以把我的项目下载下来,也可以fork我的项目把名称改成 “用户名.github.io”这样.&lt;/p&gt;
+
+&lt;h2 id=&quot;如何写页面&quot;&gt;如何写页面&lt;/h2&gt;
+&lt;h3 id=&quot;文件目录的说明&quot;&gt;文件目录的说明&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;文件/目录&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;描述&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;_config.yml&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;保存配置数据。很多配置选项都可以直接在命令行中进行设置，但是如果你把那些配置写在这儿，你就不用非要去记住那些命令了。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;_drafts&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;drafts（草稿）是未发布的文章。这些文件的格式中都没有 title.MARKUP 数据。学习如何 使用草稿.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;_includes&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;你可以加载这些包含部分到你的布局或者文章中以方便重用。可以用这个标签  “ include file.ext” 来把文件 _includes/file.ext 包含进来。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;_layouts&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;layouts（布局）是包裹在文章外部的模板。布局可以在 YAML 头信息中根据不同文章进行选择。 这将在下一个部分进行介绍。标签  “content” 可以将content插入页面中。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;_posts&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;这里放的就是你的文章了。文件格式很重要，必须要符合: “YEAR-MONTH-DAY-title.MARKUP”。 永久链接 可以在文章中自己定制，但是数据和标记语言都是根据文件名来确定的。&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;_data&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;格式化好的网站数据应放在这里。jekyll 的引擎会自动加载在该目录下所有的 yaml 文件（后缀是 .yml, .yaml, .json 或者 .csv ）。这些文件可以经由 ｀site.data｀ 访问。如果有一个 “members.yml” 文件在该目录下，你就可以通过 “site.data.members” 获取该文件的内容。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;_site&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;一旦 Jekyll 完成转换，就会将生成的页面放在这里（默认）。最好将这个目录放进你的 “.gitignore” 文件中。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;.jekyll-metadata&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;该文件帮助 Jekyll 跟踪哪些文件从上次建立站点开始到现在没有被修改，哪些文件需要在下一次站点建立时重新生成。该文件不会被包含在生成的站点中。将它加入到你的 “.gitignore” 文件可能是一个好注意。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;HTML, Markdown, Textile files&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;如果这些文件中包含 YAML 头信息 部分，Jekyll 就会自动将它们进行转换。当然，其他的如 .html, .markdown, .md, 或者 .textile 等在你的站点根目录下或者不是以上提到的目录中的文件也会被转换。&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;如何写一个markdown文件&quot;&gt;如何写一个markdown文件&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.jianshu.com/p/399e5a3c7cc5&quot;&gt;markdown基础&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;如何使用模板的排版&quot;&gt;如何使用模板的排版&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://tianqi.name/jekyll-TeXt-theme/samples.html#page-layout&quot;&gt;感激jekyll-TeXt-theme这个项目 给我们创建博客带来了极大的方便.&lt;/a&gt;
+接下来 我会用当前这个页面来做一个简单介绍
+在页面的头部加入&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;---
+layout: article
+title: 这是一个基于OSX+jekyll+markdown+github的个人博客
+aside:
+	toc: true
+tags: hello
+--- 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;一般情况下只需要配置 这些字段就行了&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	    layout: article
+      sharing: true
+      license: true
+      aside:
+        toc: true
+      show_edit_on_github: true
+      show_subscribe: true
+      pageview: true
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;关于模板的详细配置信息&quot;&gt;关于模板的详细配置信息&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://tianqi.name/jekyll-TeXt-theme/docs/zh/configuration&quot;&gt;configuration 传送门&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;在本地查看效果&quot;&gt;在本地查看效果&lt;/h3&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;bundle exec jekyll build&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;jekyll
+gem install jekyll bundler&lt;/p&gt;</content><author><name>jingyu.qi</name><email>qijingyu2009@gmail.com</email></author><summary type="html">title: 这是一个基于OSX+jekyll+markdown+github的个人博客 tags: hello — 这是一个基于OSX+jekyll+markdown+github的个人博客 --致我亲爱的宝贝 Install Command Line ToolsPermalink xcode-select --install Install homebrew /usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot; Install ruby 先检查版本号 ` ruby -v ` 我们使用2.6.3 如果低于这个,那就请跟着我下面的步骤进行升级吧. 网上有很多很多ruby的管理工具 这里我使用rvm 所以下文使用rvm 来进行. // 安装rvm curl -sSL https://get.rvm.io | bash -s stable // 进行确认版本 rvm -v // 安装ruby的 2.6.3版本 rvm install 2.6.3 // 把2.6.3这个版本设置成默认 rvm use 2.6.3 --default 安装及使用github desktop 传送门 ==&amp;gt; https://desktop.github.com/ 导入项目 接下来,就可以把我的项目下载下来,也可以fork我的项目把名称改成 “用户名.github.io”这样. 如何写页面 文件目录的说明 文件/目录 描述 _config.yml 保存配置数据。很多配置选项都可以直接在命令行中进行设置，但是如果你把那些配置写在这儿，你就不用非要去记住那些命令了。 _drafts drafts（草稿）是未发布的文章。这些文件的格式中都没有 title.MARKUP 数据。学习如何 使用草稿. _includes 你可以加载这些包含部分到你的布局或者文章中以方便重用。可以用这个标签 “ include file.ext” 来把文件 _includes/file.ext 包含进来。 _layouts layouts（布局）是包裹在文章外部的模板。布局可以在 YAML 头信息中根据不同文章进行选择。 这将在下一个部分进行介绍。标签 “content” 可以将content插入页面中。 _posts 这里放的就是你的文章了。文件格式很重要，必须要符合: “YEAR-MONTH-DAY-title.MARKUP”。 永久链接 可以在文章中自己定制，但是数据和标记语言都是根据文件名来确定的。 _data 格式化好的网站数据应放在这里。jekyll 的引擎会自动加载在该目录下所有的 yaml 文件（后缀是 .yml, .yaml, .json 或者 .csv ）。这些文件可以经由 ｀site.data｀ 访问。如果有一个 “members.yml” 文件在该目录下，你就可以通过 “site.data.members” 获取该文件的内容。 _site 一旦 Jekyll 完成转换，就会将生成的页面放在这里（默认）。最好将这个目录放进你的 “.gitignore” 文件中。 .jekyll-metadata 该文件帮助 Jekyll 跟踪哪些文件从上次建立站点开始到现在没有被修改，哪些文件需要在下一次站点建立时重新生成。该文件不会被包含在生成的站点中。将它加入到你的 “.gitignore” 文件可能是一个好注意。 HTML, Markdown, Textile files 如果这些文件中包含 YAML 头信息 部分，Jekyll 就会自动将它们进行转换。当然，其他的如 .html, .markdown, .md, 或者 .textile 等在你的站点根目录下或者不是以上提到的目录中的文件也会被转换。 如何写一个markdown文件 markdown基础 如何使用模板的排版 感激jekyll-TeXt-theme这个项目 给我们创建博客带来了极大的方便. 接下来 我会用当前这个页面来做一个简单介绍 在页面的头部加入 --- layout: article title: 这是一个基于OSX+jekyll+markdown+github的个人博客 aside: toc: true tags: hello --- 一般情况下只需要配置 这些字段就行了 layout: article sharing: true license: true aside: toc: true show_edit_on_github: true show_subscribe: true pageview: true 关于模板的详细配置信息 configuration 传送门 在本地查看效果 bundle exec jekyll build jekyll gem install jekyll bundler</summary></entry></feed>
