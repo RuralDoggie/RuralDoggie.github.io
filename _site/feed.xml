@@ -1,9 +1,94 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-SG"><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="zh-SG" /><updated>2020-03-25T17:30:24+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">大鲸鱼的博客</title><subtitle></subtitle><author><name>jingyu.qi</name><email>qijingyu2009@gmail.com</email></author><entry><title type="html">How To Use</title><link href="http://localhost:4000/2020/03/25/how-to-use.html" rel="alternate" type="text/html" title="How To Use" /><published>2020-03-25T00:00:00+08:00</published><updated>2020-03-25T00:00:00+08:00</updated><id>http://localhost:4000/2020/03/25/how-to-use</id><content type="html" xml:base="http://localhost:4000/2020/03/25/how-to-use.html">&lt;hr /&gt;
-&lt;p&gt;title: 这是一个基于OSX+jekyll+markdown+github的个人博客
-tags: hello
-—&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-SG"><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="zh-SG" /><updated>2020-03-26T15:12:20+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">来自闵行土狗几小情侣的博客~</title><subtitle></subtitle><author><name>jingyu.qi</name><email>qijingyu2009@gmail.com</email></author><entry><title type="html">记一次 spring boot + JUnit Jupiter 单元测试开发经历</title><link href="http://localhost:4000/2020/03/26/spring-boot-test.html" rel="alternate" type="text/html" title="记一次 spring boot + JUnit Jupiter 单元测试开发经历" /><published>2020-03-26T00:00:00+08:00</published><updated>2020-03-26T00:00:00+08:00</updated><id>http://localhost:4000/2020/03/26/spring-boot-test</id><content type="html" xml:base="http://localhost:4000/2020/03/26/spring-boot-test.html">&lt;h2 id=&quot;参数化测试&quot;&gt;参数化测试&lt;/h2&gt;
+&lt;p&gt;参数化测试是指多次调用 @Test 方法，但每次都使用不同的参数值。参数化测试必须使用 @ParameterizedTest 进行注解，而且必须为其参数指定一个来源。&lt;/p&gt;
 
-&lt;h1 id=&quot;这是一个基于osxjekyllmarkdowngithub的个人博客&quot;&gt;这是一个基于OSX+jekyll+markdown+github的个人博客&lt;/h1&gt;
+&lt;p&gt;JUnit Jupiter 提供了多个来源。每个来源指定一个 @ArgumentsSource，也就是一个 ArgumentsProvider 实现。本节将介绍如何使用 3 个来源：&lt;/p&gt;
+
+&lt;p&gt;@ValueSource
+@EnumSource
+@MethodSource&lt;/p&gt;
+
+&lt;h3 id=&quot;valuesource&quot;&gt;@ValueSource&lt;/h3&gt;
+&lt;p&gt;在 @ValueSource 中，您指定单个文字值数组，系统将这些文字值 — 一次一个地 — 提供给您的 @ParameterizedTest 方法。&lt;/p&gt;
+
+&lt;p&gt;语法类似于：
+@ParameterizedTest
+@ValueSource(longs = { 1L, 2L, 3L, 4L, 5L })
+public void findById(Long id) {
+  assertNotNull(classUnderTest);
+  Person personFound = classUnderTest.findById(id);
+  assertNotNull(personFound);
+  assertEquals(id, personFound.getId());
+}
+首先您告诉 JUnit，findById() 方法是一个 @ParameterizedTest，如上面第 1 行所示。然后使用数组初始化器语法来指定数组，如第 2 行所示。JUnit 将调用 findById() 测试方法，每次将数组中的下一个 long 传递给该方法（第 3 行），直到用完数组。您可像任何 Java 方法参数一样使用该参数（第 5 行）。&lt;/p&gt;
+
+&lt;p&gt;作为数组名所提供的 @ValueSource 属性名必须全部采用小写，而且必须与其末尾有字母 s 的类型相匹配。例如，ints 与 int 数组匹配，strings 与 String 数组匹配，等等。&lt;/p&gt;
+
+&lt;p&gt;并不支持所有的原语类型，仅支持以下类型：&lt;/p&gt;
+
+&lt;p&gt;String
+int
+long
+double&lt;/p&gt;
+
+&lt;h3 id=&quot;enumsource&quot;&gt;@EnumSource&lt;/h3&gt;
+&lt;p&gt;在 @EnumSource 中，您指定一个 enum，JUnit — 一次一个地 — 将其中的值提供给 @ParameterizedTest 方法。&lt;/p&gt;
+
+&lt;p&gt;语法类似于：
+@ParameterizedTest
+@EnumSource(PersonTestEnum.class)
+public void findById(PersonTestEnum testPerson) {
+  assertNotNull(classUnderTest);
+  Person person = testPerson.getPerson();
+  Person personFound = classUnderTest.findById(person.getId());
+  assertNotNull(personFound);
+  performPersonAssertions(person.getLastName(), person.getFirstName(), person.getAge(), person.getEyeColor(),
+      person.getGender(), personFound);
+}
+首先您告诉 JUnit，findById() 方法是一个 @ParameterizedTest，如第 1 行所示。然后指定该 enum 的 Java 类，如第 2 行所示。JUnit 将调用 findById() 测试方法，每次将下一个 enum 值传递给该方法（第 3 行），直到用完该 enum。您可像任何 Java 方法参数一样使用该参数（第 5 行）。&lt;/p&gt;
+
+&lt;p&gt;注意，PersonTestEnum 类包含在本教程的配套示例应用程序中。它位于 com.makotojava.learn.junit 包中的 src/test/java 树中。&lt;/p&gt;
+
+&lt;h3 id=&quot;methodsource&quot;&gt;@MethodSource&lt;/h3&gt;
+&lt;p&gt;使用注解 @MethodSource，可以指定您喜欢的任何复杂对象作为测试方法的参数类型。语法类似于：
+@ParameterizedTest
+@MethodSource(value = “personProvider”)
+public void findById(Person paramPerson) {
+  assertNotNull(classUnderTest);
+  long id = paramPerson.getId();
+  Person personFound = classUnderTest.findById(id);
+  assertNotNull(personFound);
+  performPersonAssertions(paramPerson.getLastName(), paramPerson.getFirstName(),
+      paramPerson.getAge(),
+      paramPerson.getEyeColor(), paramPerson.getGender(), personFound);
+}
+@MethodSource 的 names 属性用于指定一个或多个方法名，这些方法为测试方法提供参数。一个方法来源的返回类型必须是 Stream、Iterator、Iterable 或数组。此外，提供者方法必须声明为 static，所以不能将它用在 @Nested 测试类内（至少截至 JUnit 5 Milestone 5 时不能这么做）。&lt;/p&gt;
+
+&lt;p&gt;在上面的示例中，personProvider 方法（来自示例应用程序）类似于：
+static Iterator&lt;Person&gt; personProvider() {
+    PersonTestEnum[] testPeople = PersonTestEnum.values();
+    Person[] people = new Person[testPeople.length];
+    for (int aa = 0; aa &amp;lt; testPeople.length; aa++) {
+      people[aa] = testPeople[aa].getPerson();
+    }
+    return Arrays.asList(people).iterator();
+}
+假设您想为测试方法添加一个额外的参数提供者。可以这样声明它：
+@ParameterizedTest
+@MethodSource(value = { &quot;personProvider&quot;, &quot;additionalPersonProvider&quot; })
+public void findById(Person paramPerson) {
+  assertNotNull(classUnderTest);
+  long id = paramPerson.getId();
+  Person personFound = classUnderTest.findById(id);
+  assertNotNull(personFound);
+  performPersonAssertions(paramPerson.getLastName(), paramPerson.getFirstName(),
+      paramPerson.getAge(),
+      paramPerson.getEyeColor(), paramPerson.getGender(), personFound);
+}
+我们使用数组初始化器语法指定这些方法（第 2 行），而且将按您指定的顺序调用各个方法，最后调用的是 additionalPersonProvider()。&lt;/Person&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;csvfilesource&quot;&gt;@CsvFileSource&lt;/h3&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@CsvFileSource(resources = &quot;/test/case/order/order_create_success.csv&quot;, delimiter = '|', numLinesToSkip = 1)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>jingyu.qi</name><email>qijingyu2009@gmail.com</email></author><summary type="html">参数化测试 参数化测试是指多次调用 @Test 方法，但每次都使用不同的参数值。参数化测试必须使用 @ParameterizedTest 进行注解，而且必须为其参数指定一个来源。 JUnit Jupiter 提供了多个来源。每个来源指定一个 @ArgumentsSource，也就是一个 ArgumentsProvider 实现。本节将介绍如何使用 3 个来源： @ValueSource @EnumSource @MethodSource @ValueSource 在 @ValueSource 中，您指定单个文字值数组，系统将这些文字值 — 一次一个地 — 提供给您的 @ParameterizedTest 方法。 语法类似于： @ParameterizedTest @ValueSource(longs = { 1L, 2L, 3L, 4L, 5L }) public void findById(Long id) { assertNotNull(classUnderTest); Person personFound = classUnderTest.findById(id); assertNotNull(personFound); assertEquals(id, personFound.getId()); } 首先您告诉 JUnit，findById() 方法是一个 @ParameterizedTest，如上面第 1 行所示。然后使用数组初始化器语法来指定数组，如第 2 行所示。JUnit 将调用 findById() 测试方法，每次将数组中的下一个 long 传递给该方法（第 3 行），直到用完数组。您可像任何 Java 方法参数一样使用该参数（第 5 行）。 作为数组名所提供的 @ValueSource 属性名必须全部采用小写，而且必须与其末尾有字母 s 的类型相匹配。例如，ints 与 int 数组匹配，strings 与 String 数组匹配，等等。 并不支持所有的原语类型，仅支持以下类型： String int long double @EnumSource 在 @EnumSource 中，您指定一个 enum，JUnit — 一次一个地 — 将其中的值提供给 @ParameterizedTest 方法。 语法类似于： @ParameterizedTest @EnumSource(PersonTestEnum.class) public void findById(PersonTestEnum testPerson) { assertNotNull(classUnderTest); Person person = testPerson.getPerson(); Person personFound = classUnderTest.findById(person.getId()); assertNotNull(personFound); performPersonAssertions(person.getLastName(), person.getFirstName(), person.getAge(), person.getEyeColor(), person.getGender(), personFound); } 首先您告诉 JUnit，findById() 方法是一个 @ParameterizedTest，如第 1 行所示。然后指定该 enum 的 Java 类，如第 2 行所示。JUnit 将调用 findById() 测试方法，每次将下一个 enum 值传递给该方法（第 3 行），直到用完该 enum。您可像任何 Java 方法参数一样使用该参数（第 5 行）。 注意，PersonTestEnum 类包含在本教程的配套示例应用程序中。它位于 com.makotojava.learn.junit 包中的 src/test/java 树中。 @MethodSource 使用注解 @MethodSource，可以指定您喜欢的任何复杂对象作为测试方法的参数类型。语法类似于： @ParameterizedTest @MethodSource(value = “personProvider”) public void findById(Person paramPerson) { assertNotNull(classUnderTest); long id = paramPerson.getId(); Person personFound = classUnderTest.findById(id); assertNotNull(personFound); performPersonAssertions(paramPerson.getLastName(), paramPerson.getFirstName(), paramPerson.getAge(), paramPerson.getEyeColor(), paramPerson.getGender(), personFound); } @MethodSource 的 names 属性用于指定一个或多个方法名，这些方法为测试方法提供参数。一个方法来源的返回类型必须是 Stream、Iterator、Iterable 或数组。此外，提供者方法必须声明为 static，所以不能将它用在 @Nested 测试类内（至少截至 JUnit 5 Milestone 5 时不能这么做）。 在上面的示例中，personProvider 方法（来自示例应用程序）类似于： static Iterator personProvider() { PersonTestEnum[] testPeople = PersonTestEnum.values(); Person[] people = new Person[testPeople.length]; for (int aa = 0; aa &amp;lt; testPeople.length; aa++) { people[aa] = testPeople[aa].getPerson(); } return Arrays.asList(people).iterator(); } 假设您想为测试方法添加一个额外的参数提供者。可以这样声明它： @ParameterizedTest @MethodSource(value = { &quot;personProvider&quot;, &quot;additionalPersonProvider&quot; }) public void findById(Person paramPerson) { assertNotNull(classUnderTest); long id = paramPerson.getId(); Person personFound = classUnderTest.findById(id); assertNotNull(personFound); performPersonAssertions(paramPerson.getLastName(), paramPerson.getFirstName(), paramPerson.getAge(), paramPerson.getEyeColor(), paramPerson.getGender(), personFound); } 我们使用数组初始化器语法指定这些方法（第 2 行），而且将按您指定的顺序调用各个方法，最后调用的是 additionalPersonProvider()。 @CsvFileSource @CsvFileSource(resources = &quot;/test/case/order/order_create_success.csv&quot;, delimiter = '|', numLinesToSkip = 1)</summary></entry><entry><title type="html">how to use</title><link href="http://localhost:4000/2020/03/25/how-to-use.html" rel="alternate" type="text/html" title="how to use" /><published>2020-03-25T00:00:00+08:00</published><updated>2020-03-25T00:00:00+08:00</updated><id>http://localhost:4000/2020/03/25/how-to-use</id><content type="html" xml:base="http://localhost:4000/2020/03/25/how-to-use.html">&lt;h1 id=&quot;这是一个基于osxjekyllmarkdowngithub的个人博客&quot;&gt;这是一个基于OSX+jekyll+markdown+github的个人博客&lt;/h1&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;												--致我亲爱的宝贝
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -60,7 +145,7 @@ rvm use 2.6.3 --default
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;_posts&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;这里放的就是你的文章了。文件格式很重要，必须要符合: “YEAR-MONTH-DAY-title.MARKUP”。 永久链接 可以在文章中自己定制，但是数据和标记语言都是根据文件名来确定的。&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;这里放的就是你的文章了。文件格式很重要，必须要符合: “YEAR-MONTH-DAY-title.md”。 永久链接 可以在文章中自己定制，但是数据和标记语言都是根据文件名来确定的。&lt;/strong&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td style=&quot;text-align: left&quot;&gt;_data&lt;/td&gt;
@@ -112,7 +197,8 @@ tags: hello
 &lt;p&gt;&lt;a href=&quot;https://tianqi.name/jekyll-TeXt-theme/docs/zh/configuration&quot;&gt;configuration 传送门&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;在本地查看效果&quot;&gt;在本地查看效果&lt;/h3&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;bundle exec jekyll build&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;将这个写完的文章保存为 “年-月-日-标题.md”的名字形式，上传至Github中的_posts文件中，Jekyll会自动解析生成该文章的html页面。
+&lt;code class=&quot;highlighter-rouge&quot;&gt;bundle exec jekyll build&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;jekyll
-gem install jekyll bundler&lt;/p&gt;</content><author><name>jingyu.qi</name><email>qijingyu2009@gmail.com</email></author><summary type="html">title: 这是一个基于OSX+jekyll+markdown+github的个人博客 tags: hello — 这是一个基于OSX+jekyll+markdown+github的个人博客 --致我亲爱的宝贝 Install Command Line ToolsPermalink xcode-select --install Install homebrew /usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot; Install ruby 先检查版本号 ` ruby -v ` 我们使用2.6.3 如果低于这个,那就请跟着我下面的步骤进行升级吧. 网上有很多很多ruby的管理工具 这里我使用rvm 所以下文使用rvm 来进行. // 安装rvm curl -sSL https://get.rvm.io | bash -s stable // 进行确认版本 rvm -v // 安装ruby的 2.6.3版本 rvm install 2.6.3 // 把2.6.3这个版本设置成默认 rvm use 2.6.3 --default 安装及使用github desktop 传送门 ==&amp;gt; https://desktop.github.com/ 导入项目 接下来,就可以把我的项目下载下来,也可以fork我的项目把名称改成 “用户名.github.io”这样. 如何写页面 文件目录的说明 文件/目录 描述 _config.yml 保存配置数据。很多配置选项都可以直接在命令行中进行设置，但是如果你把那些配置写在这儿，你就不用非要去记住那些命令了。 _drafts drafts（草稿）是未发布的文章。这些文件的格式中都没有 title.MARKUP 数据。学习如何 使用草稿. _includes 你可以加载这些包含部分到你的布局或者文章中以方便重用。可以用这个标签 “ include file.ext” 来把文件 _includes/file.ext 包含进来。 _layouts layouts（布局）是包裹在文章外部的模板。布局可以在 YAML 头信息中根据不同文章进行选择。 这将在下一个部分进行介绍。标签 “content” 可以将content插入页面中。 _posts 这里放的就是你的文章了。文件格式很重要，必须要符合: “YEAR-MONTH-DAY-title.MARKUP”。 永久链接 可以在文章中自己定制，但是数据和标记语言都是根据文件名来确定的。 _data 格式化好的网站数据应放在这里。jekyll 的引擎会自动加载在该目录下所有的 yaml 文件（后缀是 .yml, .yaml, .json 或者 .csv ）。这些文件可以经由 ｀site.data｀ 访问。如果有一个 “members.yml” 文件在该目录下，你就可以通过 “site.data.members” 获取该文件的内容。 _site 一旦 Jekyll 完成转换，就会将生成的页面放在这里（默认）。最好将这个目录放进你的 “.gitignore” 文件中。 .jekyll-metadata 该文件帮助 Jekyll 跟踪哪些文件从上次建立站点开始到现在没有被修改，哪些文件需要在下一次站点建立时重新生成。该文件不会被包含在生成的站点中。将它加入到你的 “.gitignore” 文件可能是一个好注意。 HTML, Markdown, Textile files 如果这些文件中包含 YAML 头信息 部分，Jekyll 就会自动将它们进行转换。当然，其他的如 .html, .markdown, .md, 或者 .textile 等在你的站点根目录下或者不是以上提到的目录中的文件也会被转换。 如何写一个markdown文件 markdown基础 如何使用模板的排版 感激jekyll-TeXt-theme这个项目 给我们创建博客带来了极大的方便. 接下来 我会用当前这个页面来做一个简单介绍 在页面的头部加入 --- layout: article title: 这是一个基于OSX+jekyll+markdown+github的个人博客 aside: toc: true tags: hello --- 一般情况下只需要配置 这些字段就行了 layout: article sharing: true license: true aside: toc: true show_edit_on_github: true show_subscribe: true pageview: true 关于模板的详细配置信息 configuration 传送门 在本地查看效果 bundle exec jekyll build jekyll gem install jekyll bundler</summary></entry></feed>
+gem install jekyll bundler&lt;/p&gt;</content><author><name>jingyu.qi</name><email>qijingyu2009@gmail.com</email></author><summary type="html">这是一个基于OSX+jekyll+markdown+github的个人博客 --致我亲爱的宝贝 Install Command Line ToolsPermalink xcode-select --install Install homebrew /usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot; Install ruby 先检查版本号 ` ruby -v ` 我们使用2.6.3 如果低于这个,那就请跟着我下面的步骤进行升级吧. 网上有很多很多ruby的管理工具 这里我使用rvm 所以下文使用rvm 来进行. // 安装rvm curl -sSL https://get.rvm.io | bash -s stable // 进行确认版本 rvm -v // 安装ruby的 2.6.3版本 rvm install 2.6.3 // 把2.6.3这个版本设置成默认 rvm use 2.6.3 --default 安装及使用github desktop 传送门 ==&amp;gt; https://desktop.github.com/ 导入项目 接下来,就可以把我的项目下载下来,也可以fork我的项目把名称改成 “用户名.github.io”这样. 如何写页面 文件目录的说明 文件/目录 描述 _config.yml 保存配置数据。很多配置选项都可以直接在命令行中进行设置，但是如果你把那些配置写在这儿，你就不用非要去记住那些命令了。 _drafts drafts（草稿）是未发布的文章。这些文件的格式中都没有 title.MARKUP 数据。学习如何 使用草稿. _includes 你可以加载这些包含部分到你的布局或者文章中以方便重用。可以用这个标签 “ include file.ext” 来把文件 _includes/file.ext 包含进来。 _layouts layouts（布局）是包裹在文章外部的模板。布局可以在 YAML 头信息中根据不同文章进行选择。 这将在下一个部分进行介绍。标签 “content” 可以将content插入页面中。 _posts 这里放的就是你的文章了。文件格式很重要，必须要符合: “YEAR-MONTH-DAY-title.md”。 永久链接 可以在文章中自己定制，但是数据和标记语言都是根据文件名来确定的。 _data 格式化好的网站数据应放在这里。jekyll 的引擎会自动加载在该目录下所有的 yaml 文件（后缀是 .yml, .yaml, .json 或者 .csv ）。这些文件可以经由 ｀site.data｀ 访问。如果有一个 “members.yml” 文件在该目录下，你就可以通过 “site.data.members” 获取该文件的内容。 _site 一旦 Jekyll 完成转换，就会将生成的页面放在这里（默认）。最好将这个目录放进你的 “.gitignore” 文件中。 .jekyll-metadata 该文件帮助 Jekyll 跟踪哪些文件从上次建立站点开始到现在没有被修改，哪些文件需要在下一次站点建立时重新生成。该文件不会被包含在生成的站点中。将它加入到你的 “.gitignore” 文件可能是一个好注意。 HTML, Markdown, Textile files 如果这些文件中包含 YAML 头信息 部分，Jekyll 就会自动将它们进行转换。当然，其他的如 .html, .markdown, .md, 或者 .textile 等在你的站点根目录下或者不是以上提到的目录中的文件也会被转换。 如何写一个markdown文件 markdown基础 如何使用模板的排版 感激jekyll-TeXt-theme这个项目 给我们创建博客带来了极大的方便. 接下来 我会用当前这个页面来做一个简单介绍 在页面的头部加入 --- layout: article title: 这是一个基于OSX+jekyll+markdown+github的个人博客 aside: toc: true tags: hello --- 一般情况下只需要配置 这些字段就行了 layout: article sharing: true license: true aside: toc: true show_edit_on_github: true show_subscribe: true pageview: true 关于模板的详细配置信息 configuration 传送门 在本地查看效果 将这个写完的文章保存为 “年-月-日-标题.md”的名字形式，上传至Github中的_posts文件中，Jekyll会自动解析生成该文章的html页面。 bundle exec jekyll build jekyll gem install jekyll bundler</summary></entry></feed>
