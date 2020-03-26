@@ -93,4 +93,5 @@ public void findById(Person paramPerson) {
 
 ### @CsvFileSource
     @CsvFileSource(resources = "/test/case/order/order_create_success.csv", delimiter = '|', numLinesToSkip = 1)
-![AltText](https://ruraldoggie.github.io/asset/demo/demo.jpg)
+    
+![Image](https://ruraldoggie.github.io/asset/demo/demo.jpg){:.border}
