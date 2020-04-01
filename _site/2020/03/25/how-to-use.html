@@ -309,6 +309,13 @@ rvm install 2.6.3
 // 把2.6.3这个版本设置成默认
 rvm use 2.6.3 --default 
 </code></pre></div></div>
+<h2 id="install-jekyll--bundler">Install jekyll &amp; bundler</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem install jekyll bundler
+
+// 如果安装一直卡着没动 就执行下面的命令
+gem sources --add https://gems.ruby-china.com --remove https://rubygems.org/
+gem install jekyll bundler
+</code></pre></div></div>
 <h2 id="安装及使用github-desktop">安装及使用github desktop</h2>
 <p><a href="https://desktop.github.com/">传送门 ==&gt; https://desktop.github.com/</a></p>
 <h2 id="导入项目">导入项目</h2>
@@ -395,7 +402,18 @@ tags: hello
 <p><a href="https://tianqi.name/jekyll-TeXt-theme/docs/zh/configuration">configuration 传送门</a></p>
 
 <h3 id="在本地查看效果">在本地查看效果</h3>
-<p>将这个写完的文章保存为 “年-月-日-标题.md”的名字形式，上传至Github中的_posts文件中，Jekyll会自动解析生成该文章的html页面。
+<p>将这个写完的文章保存为 “年-月-日-标题.md”的名字形式，上传至Github中的_posts文件中，Jekyll会自动解析生成该文章的html页面。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 进入项目的根目录执行
+bundle install
+// 如果执行了没有反应就执行下面的命令
+bundle config mirror.https://rubygems.org https://gems.ruby-china.com
+bundle install
+// 安装成功后 执行下面的命令就可以在本地进行调试了
+bundle exec jekyll serve
+</code></pre></div></div>
+
+<p>这个是一个打包命令
 <code class="highlighter-rouge">bundle exec jekyll build</code></p>
 
 <p>jekyll
