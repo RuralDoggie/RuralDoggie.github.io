@@ -133,7 +133,7 @@ comments:
   gitalk:
     clientID    : 50e5a2e5e2cde6b0531e # GitHub Application Client ID
     clientSecret: f3a0ff4e9ea2c2e1f84972f6f29fb16981381a46 # GitHub Application Client Secret
-    repository  : RuralDoggie # GitHub repo
+    repository  : RuralDoggie.github.io # GitHub repo
     owner       : RuralDoggie # GitHub repo owner
     admin:  # GitHub repo owner and collaborators, only these guys can initialize GitHub issues, IT IS A LIST.
        - qijingyu2003 # [qijingyu2003,mellotina] #your GitHub Id
