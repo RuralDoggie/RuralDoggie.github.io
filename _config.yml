@@ -122,7 +122,7 @@ sharing:
 ## => Comments
 ##############################
 comments:
-  provider: gitalk # false (default), "disqus", "gitalk", "valine", "custom"
+  provider: "gitalk" # false (default), "disqus", "gitalk", "valine", "custom"
 
   ## Disqus
   disqus:
@@ -131,12 +131,18 @@ comments:
   ## Gitalk
   # please refer to https://github.com/gitalk/gitalk for more info.
   gitalk:
-    clientID    : 50e5a2e5e2cde6b0531e # GitHub Application Client ID
-    clientSecret: f3a0ff4e9ea2c2e1f84972f6f29fb16981381a46 # GitHub Application Client Secret
-    repository  : RuralDoggie.github.io # GitHub repo
-    owner       : RuralDoggie # GitHub repo owner
-    admin: [qijingyu2003,mellotina] # GitHub repo owner and collaborators, only these guys can initialize GitHub issues, IT IS A LIST.
+    # clientID    : 50e5a2e5e2cde6b0531e # GitHub Application Client ID
+    #clientSecret: f3a0ff4e9ea2c2e1f84972f6f29fb16981381a46 # GitHub Application Client Secret
+    #repository  : RuralDoggie.github.io # GitHub repo
+    #owner       : RuralDoggie # GitHub repo owner
+    #admin: [qijingyu2003,mellotina] # GitHub repo owner and collaborators, only these guys can initialize GitHub issues, IT IS A LIST.
       # - your GitHub Id
+    clientID: 143666b578a416f82175
+    clientSecret: 1d1c0604a1a4bff9b59ab7f56724dc0e8b837775
+    repository: gitalk-demo
+    owner: kitian616
+    admin:
+      - kitian616
 
   ## Valine
   # please refer to https://valine.js.org/en/ for more info.
