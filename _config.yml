@@ -137,6 +137,8 @@ comments:
     owner       : RuralDoggie # GitHub repo owner
     admin:  # GitHub repo owner and collaborators, only these guys can initialize GitHub issues, IT IS A LIST.
        - qijingyu2003 # [qijingyu2003,mellotina] #your GitHub Id
+       - mellotina
+       - RuralDoggie
 
   ## Valine
   # please refer to https://valine.js.org/en/ for more info.
